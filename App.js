@@ -35,14 +35,6 @@ export default function App() {
       <StatusBar style="light" />
 
       <View style={styles.header}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Pridať úlohu"
-          onPress={addTask}
-          style={({ pressed }) => [styles.headerAdd, pressed && styles.pressed]}
-        >
-          <Text style={styles.headerAddText}>ADD</Text>
-        </Pressable>
       </View>
 
       <View style={styles.content}>
@@ -56,6 +48,14 @@ export default function App() {
             returnKeyType="done"
             style={styles.input}
           />
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Pridať úlohu"
+            onPress={addTask}
+            style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
+          >
+            <Text style={styles.addButtonText}>ADD</Text>
+          </Pressable>
         </View>
 
         <View style={styles.orangeRule} />
@@ -97,21 +97,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  headerAdd: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerAddText: {
-    color: '#ffffff',
-    fontSize: 13,
-    fontWeight: '800',
-    letterSpacing: 0.6,
-  },
   content: {
     flex: 1,
     backgroundColor: '#f4f4f4',
@@ -121,9 +106,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingTop: 18,
     backgroundColor: '#eeeeee',
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
   },
   input: {
+    flex: 1,
     height: 42,
     backgroundColor: '#ffffff',
     borderColor: '#d8d8d8',
@@ -132,6 +120,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     color: '#1c2a36',
     fontSize: 14,
+  },
+  addButton: {
+    height: 42,
+    minWidth: 58,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    backgroundColor: '#147eaa',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButtonText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.4,
   },
   pressed: {
     opacity: 0.75,
