@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Item from './item';
 
 export default function App() {
   const [draft, setDraft] = useState('');
@@ -24,10 +25,6 @@ export default function App() {
     ]);
     setDraft('');
     Keyboard.dismiss();
-  }
-
-  function removeTask(id) {
-    setTasks((current) => current.filter((task) => task.id !== id));
   }
 
   return (
@@ -68,16 +65,7 @@ export default function App() {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.taskList}
           keyboardShouldPersistTaps="handled"
-          renderItem={({ item }) => (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={`Odstrániť úlohu ${item.title}`}
-              onPress={() => removeTask(item.id)}
-              style={({ pressed }) => [styles.taskRow, pressed && styles.taskPressed]}
-            >
-              <Text style={styles.taskText}>{item.title}</Text>
-            </Pressable>
-          )}
+          renderItem={({ item }) => <Item item={item} />}
         />
       </View>
     </View>
@@ -158,21 +146,5 @@ const styles = StyleSheet.create({
   },
   taskList: {
     paddingBottom: 24,
-  },
-  taskRow: {
-    minHeight: 42,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eeeeee',
-    backgroundColor: '#ffffff',
-  },
-  taskPressed: {
-    backgroundColor: '#f3f6f8',
-  },
-  taskText: {
-    color: '#263744',
-    fontSize: 15,
   },
 });
