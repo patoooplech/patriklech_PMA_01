@@ -5,16 +5,11 @@ export default function App() {
   return (
     //ukážka použitia komponentov View, Text, TextInput a Button flex
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput  styles ={styles.inputText} placeholder="Enter a task..."/>
-        <Button title="Add"  />
-
-      </View>
-      <View style={styles.taskContainer}>
-       <Text> UDALOSTI ::::::</Text>
-      </View>
+      <View style={{flex: 1, backgroundColor: 'red'}}></View>
+      <View style={{flex: 2, backgroundColor: 'blue'}}></View>
+      <View style={{flex: 3, backgroundColor: 'green'}}></View>
     
-      <StatusBar style="auto" />
+      
 
     </View>
   );
@@ -23,6 +18,7 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
+    padding: 50,
 
   },
   inputContainer: {},
