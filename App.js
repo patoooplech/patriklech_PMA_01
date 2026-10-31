@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import {Button, StyleSheet, Text, View , TextInput} from 'react-native';
 import { useState } from 'react';
+import { v4 as uuidv } from 'uuid';
 export default function App() {
   //uchovanie textu pomocou ract useState
   const [taskText, setTaskText] = useState("");
   //uchiva tasky do pola
   const [taskList, setTaskList] = useState([]);
+
   function addTaskHandler() {
+    const newID = uuidv();
+    console.log("New task ID:", newID);
     setTaskList((prevTask) => [...prevTask, taskText]);
+    setTaskText("");
   }
   function inputTextHandler(enteredText) {
     setTaskText(enteredText);
@@ -16,7 +21,7 @@ export default function App() {
     //ukážka použitia komponentov View, Text, TextInput a Button flex
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
-        <TextInput  styles ={styles.inputText} placeholder="Enter a task..." 
+        <TextInput  style={styles.inputText} placeholder="Enter a task..." 
         onChangeText={inputTextHandler}/>
         <Button title="Add" onPress={addTaskHandler} />
 
