@@ -10,8 +10,8 @@ export default function App() {
 
   function addTaskHandler() {
     const newID = uuidv();
-    console.log("New task ID:", newID);
-    setTaskList((prevTask) => [...prevTask, taskText]);
+    //console.log("New task ID:", newID);
+    setTaskList((prevTask) => [...prevTask, { id: newID, text: taskText }]);
     setTaskText("");
   }
   function inputTextHandler(enteredText) {
@@ -27,8 +27,11 @@ export default function App() {
 
       </View>
       <View style={styles.taskContainer}>
-        {taskList.map((task, index) => (
-          <Text key={index}> {task}</Text>
+        {taskList.map((task) => (
+          <View style={styles.taskItem} key={task.id}>
+            <Text > {task.id}:{task.text}</Text>
+          </View>
+          
         ))}
       </View>
     
@@ -60,5 +63,12 @@ const styles = StyleSheet.create({
      borderTopColor: 'gray', 
       marginTop: 20 , 
       padding: 20,},
+  taskItem: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: 'lightgray',
+    borderRadius: 10,
+
+  }
 
 });
