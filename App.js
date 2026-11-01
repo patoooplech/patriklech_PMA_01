@@ -17,14 +17,16 @@ export default function App() {
       ...previousTasks,
       { id: uuidv({ random: Crypto.getRandomValues(new Uint8Array(16)) }), text },
     ]);
-  }
-
+   }
+function deleteTaskItem()  {
+  console.log("delete");
+}
   return (
     <View style={styles.appContainer}>
       <TaskInput onAddTask={addTaskHandler} />
        <FlatList
         data={taskList}
-        renderItem={({item}) => <TaskItem key={item.id}  text={item.text} task ={item} />}
+        renderItem={({item}) => <TaskItem key={item.id}  text={item.text} task ={item} onDeleteItem={deleteTaskItem} />}
         
       />
       <StatusBar style="auto" />

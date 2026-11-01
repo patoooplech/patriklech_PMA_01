@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , Pressable} from 'react-native';
 
-export default function TaskItem({ id, text }) {
+export default function TaskItem({ task, onDeleteItem }) {
   return (
-    <View style={styles.taskItem}>
-      <Text> {text}</Text>
-    </View>
+    <Pressable onPress={onDeleteItem}>
+      <View style={styles.taskItem}>
+        <Text> {task.text}</Text>
+      </View>
+    </Pressable>
   );
 }
 
