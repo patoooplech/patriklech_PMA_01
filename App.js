@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, View , FlatList} from 'react-native';
+import { useState} from 'react';
 import * as Crypto from 'expo-crypto';
 import { v4 as uuidv } from 'uuid';
 import TaskInput from './components/TaskInput';
@@ -22,11 +22,11 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       <TaskInput onAddTask={addTaskHandler} />
-      <View style={styles.taskContainer}>
-        {taskList.map((task) => (
-          <TaskItem key={task.id} id={task.id} text={task.text} />
-        ))}
-      </View>
+       <FlatList
+        data={taskList}
+        renderItem={({item}) => <TaskItem key={item.id}  text={item.text} task ={item} />}
+        
+      />
       <StatusBar style="auto" />
     </View>
   );
