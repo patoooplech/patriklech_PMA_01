@@ -1,42 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import {Button, StyleSheet, Text, View , TextInput} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useState } from 'react';
+import * as Crypto from 'expo-crypto';
 import { v4 as uuidv } from 'uuid';
+import TaskInput from './components/TaskInput';
+import TaskItem from './components/TaskItem';
+
 export default function App() {
-  //uchovanie textu pomocou ract useState
-  const [taskText, setTaskText] = useState("");
-  //uchiva tasky do pola
   const [taskList, setTaskList] = useState([]);
 
-  function addTaskHandler() {
-    const newID = uuidv();
-    //console.log("New task ID:", newID);
-    setTaskList((prevTask) => [...prevTask, { id: newID, text: taskText }]);
-    setTaskText("");
-  }
-  function inputTextHandler(enteredText) {
-    setTaskText(enteredText);
-  }
-  return (
-    //ukážka použitia komponentov View, Text, TextInput a Button flex
-    <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput  style={styles.inputText} placeholder="Enter a task..." 
-        onChangeText={inputTextHandler}/>
-        <Button title="Add" onPress={addTaskHandler} />
+  function addTaskHandler(taskText) {
+    const text = taskText.trim();
+    if (!text) return;
 
-      </View>
+    setTaskList((previousTasks) => [
+      ...previousTasks,
+      { id: uuidv({ random: Crypto.getRandomValues(new Uint8Array(16)) }), text },
+    ]);
+  }
+
+  return (
+    <View style={styles.appContainer}>
+      <TaskInput onAddTask={addTaskHandler} />
       <View style={styles.taskContainer}>
         {taskList.map((task) => (
-          <View style={styles.taskItem} key={task.id}>
-            <Text > {task.id}:{task.text}</Text>
-          </View>
-          
+          <TaskItem key={task.id} id={task.id} text={task.text} />
         ))}
       </View>
-    
       <StatusBar style="auto" />
-
     </View>
   );
 }
@@ -44,31 +35,14 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-
   },
-  inputContainer: {
-    flex: 1,flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  inputText: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    width: '80%',
-    padding: 10,
-  },
-  taskContainer: {flex: 3,
+  taskContainer: {
+    flex: 3,
     borderTopWidth: 5,
-     borderTopColor: 'gray', 
-      marginTop: 20 , 
-      padding: 20,},
-  taskItem: {
-    margin: 10,
-    padding: 10,
-    backgroundColor: 'lightgray',
-    borderRadius: 10,
-
-  }
-
+    borderTopColor: 'gray',
+    marginTop: 20,
+    padding: 20,
+  },
 });
+
+
