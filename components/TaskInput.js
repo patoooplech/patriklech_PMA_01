@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, StyleSheet, TextInput, View, Modal } from 'react-native';
 
-export default function TaskInput({ onAddTask }) {
+export default function TaskInput(props) {
   const [taskText, setTaskText] = useState('');
 
   function addTaskHandler() {
-    onAddTask(taskText);
+    props.onAddTask(taskText);
     setTaskText("");
   }
 
   return (
+    <Modal visible={props.visible} animationType="slide">
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.inputText}
@@ -19,16 +20,26 @@ export default function TaskInput({ onAddTask }) {
         onSubmitEditing={addTaskHandler}
         returnKeyType="done"
       />
-      <Button title="Add" onPress={addTaskHandler} />
+     
     </View>
+    <View style={styles.buttonContainer}>
+      <View style={styles.button}>
+         <Button title="Add" onPress={addTaskHandler} />
+      </View>
+      <View style={styles.button}>
+          <Button title="CANCEL" onPress={props.onCancel} />
+      </View>
+      <View style={styles.button}></View>
+    </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
@@ -38,5 +49,13 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     padding: 10,
     marginRight: 12,
+  },
+  buttonContainer: {
+    marginTop: 16,
+    flexDirection: 'row',
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 8,
   },
 });
