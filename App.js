@@ -18,8 +18,12 @@ export default function App() {
       { id: uuidv({ random: Crypto.getRandomValues(new Uint8Array(16)) }), text },
     ]);
    }
-function deleteTaskItem()  {
-  console.log("delete");
+function deleteTaskItem(id)  {
+  //console.log("delete");
+  setTaskList((CurrentTaskList) =>{
+    return CurrentTaskList.filter((task) => task.id !== id);
+  }
+);
 }
   return (
     <View style={styles.appContainer}>
